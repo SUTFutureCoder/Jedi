@@ -1,4 +1,4 @@
-import Palpatine.S1TwoSum;
+import Palpatine.*;
 
 import java.util.ArrayList;
 
@@ -11,16 +11,18 @@ public class Main {
 
     public static void main(String []args) {
 
+
+
         /**
-         * INPUT
+         * S1TwoSum
          */
         int[] nums = {3, 2, 4};
         int target = 6;
+//        S1TwoSum.twoSum(nums, target);
 
-        /**
-         * RUN
-         */
-        S1TwoSum.twoSum(nums, target);
+//        S29DivideTwoIntegers.divide(20, 5);
+
+        S3LongestSubstringWithoutRepeatingCharacters.lengthOfLongestSubstring("abcabcabc123");
     }
 
 }
