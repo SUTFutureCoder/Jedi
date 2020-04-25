@@ -1,0 +1,33 @@
+class Solution {
+    public boolean isUgly(int num) {
+        if (num == 1) {
+            return true;
+        }
+        while (num != 1) {
+            if (num % 2 == 0) {
+                num /= 2;
+                continue;
+            }
+            if (num % 3 == 0) {
+                num /= 3;
+                continue;
+            }
+            if (num % 5 == 0) {
+                num /= 5;
+                continue;
+            }
+            return false;
+        }
+        return true;
+    }
+}
+
+//runtime:N/A
+//memory:N/A
+//total_testcases:1012
+//total_correct:12
+//input_formatted:
+//expected_output:
+//code_output:null
+//runtime_error:null
+//last_testcase:0
