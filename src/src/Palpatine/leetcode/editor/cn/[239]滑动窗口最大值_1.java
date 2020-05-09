@@ -34,30 +34,32 @@
 // Related Topics 堆 Sliding Window
 
 
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-    Comparator cmp = (o1, o2) -> (int)o2 - (int)o1;
-
     public int[] maxSlidingWindow(int[] nums, int k) {
-        PriorityQueue<Integer> q = new PriorityQueue<>(cmp);
-        int[] ret = new int[nums.length - k + 1];
-        // init
-        int last = 0;
-        while (last < k) {
-            q.add(nums[last++]);
+        if (nums == null || k <= 0) {
+            return new int[0];
         }
-        int i = 0;
-        ret[i++] = q.peek();
-        // poll
-        while (last < nums.length) {
-            q.remove(nums[last - k]);
-            q.add(nums[last++]);
-            ret[i++] = q.peek();
+        int n = nums.length;
+        int[] r = new int[n - k + 1];
+        int ri = 0;
+        Deque<Integer> q = new ArrayDeque<>();
+        for (int i = 0; i < n; i++) {
+            if (!q.isEmpty() && q.peek() < i - k + 1) {
+                q.poll();
+            }
+            while (!q.isEmpty() && nums[q.peekLast()] < nums[i]) {
+                q.pollLast();
+            }
+            q.offer(i);
+            if (i >= k - 1) {
+                r[ri++] = nums[q.peek()];
+            }
         }
-        return ret;
+        return r;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
