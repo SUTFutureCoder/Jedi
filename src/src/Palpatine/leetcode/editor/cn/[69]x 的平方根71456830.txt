@@ -1,0 +1,28 @@
+class Solution {
+    public int mySqrt(int x) {
+        int low = 1, high = x;
+        int mid = 1;
+        while (low <= high) {
+            mid = low + (high - low) / 2;
+            if (mid * mid == x) {
+                return mid;
+            }
+            if (mid * mid < x) {
+                low = mid;
+            } else {
+                high = mid;
+            }
+        }
+        return mid;
+    }
+}
+
+//runtime:N/A
+//memory:N/A
+//total_testcases:1017
+//total_correct:1
+//input_formatted:
+//expected_output:
+//code_output:null
+//runtime_error:null
+//last_testcase:8

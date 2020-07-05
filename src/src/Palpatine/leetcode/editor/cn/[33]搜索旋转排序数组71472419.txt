@@ -1,0 +1,28 @@
+class Solution {
+    public int search(int[] nums, int target) {
+        int lo = 0, hi = nums.length - 1;
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (nums[lo] <= nums[mid]) {
+                // 左侧递增
+                if (target >= nums[lo] && target <= nums[mid]) {
+                    // 左侧范围内
+                    hi = mid - 1;
+                } else {
+                    // 在右侧范围
+                    lo = mid + 1;
+                }
+            } else {
+                // 左侧不递增，在右边
+                lo = mid + 1;
+            }
+        }
+        return lo >= nums.length || nums[lo] != target ? -1 : lo;
+    }
+}
+
+//total_testcases:196
+//total_correct:167
+//input_formatted:[5,1,3], 1
+//expected_output:1
+//code_output:-1

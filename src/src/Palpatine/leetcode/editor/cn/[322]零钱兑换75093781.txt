@@ -1,0 +1,38 @@
+class Solution {
+
+    public int coinChange(int[] coins, int amount) {
+        return dp(coins, amount);
+    }
+
+    Map<Integer, Integer> dpMap = new HashMap<>();
+
+    private int dp(int[] coins, int amount) {
+        if (dpMap.containsKey(amount)) {
+            return dpMap.get(amount);
+        }
+        if (amount == 0) {
+            return 0;
+        }
+        if (amount < 0) {
+            return -1;
+        }
+        for (int coin : coins) {
+            int lastRes = dp(coins, amount - coin);
+            if (lastRes == -1) {
+                continue;
+            }
+            dpMap.put(amount, Math.min(dpMap.getOrDefault(amount, Integer.MAX_VALUE), lastRes + 1)) ;
+        }
+        return dpMap.getOrDefault(amount, -1);
+    }
+}
+
+//runtime:N/A
+//memory:N/A
+//total_testcases:182
+//total_correct:31
+//input_formatted:
+//expected_output:
+//code_output:null
+//runtime_error:null
+//last_testcase:[186,419,83,408] 6249

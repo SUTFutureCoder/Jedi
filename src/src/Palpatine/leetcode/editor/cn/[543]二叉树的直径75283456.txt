@@ -1,0 +1,45 @@
+
+import javax.imageio.ImageTranscoder;
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int x) { val = x; }
+}
+class Solution {
+
+    TreeNode rootTmp = null;
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        // 左深度 + 右深度
+        if (root == null) {
+            return 0;
+        }
+        if (rootTmp == null) {
+            rootTmp = root;
+        }
+
+        int left = diameterOfBinaryTree(root.left);
+        int right = diameterOfBinaryTree(root.right);
+        if (rootTmp == root) {
+            return left + right;
+        }
+        return Math.max(left, right) + 1;
+    }
+}
+
+//total_testcases:106
+//total_correct:102
+//input_formatted:[4,-7,-3,null,null,-9,-3,9,-7,-4,null,6,null,-6,-6,null,null,0,6,5,null,9,null,null,-1,-4,null,null,null,-2]
+//expected_output:8
+//code_output:7

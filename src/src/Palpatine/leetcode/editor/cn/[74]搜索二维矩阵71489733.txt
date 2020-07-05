@@ -1,0 +1,35 @@
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if (matrix.length == 0) {
+            return false;
+        }
+        int wlo = 0, whi = matrix[0].length - 1;
+        int hlo = 0, hhi = matrix.length - 1;
+        // 锁定位置
+        int hmid = -1;
+        while (hlo <= hhi) {
+            hmid = hlo + (hhi - hlo) / 2;
+            if (matrix[hmid][0] >= target) {
+                hhi = hmid - 1;
+            } else {
+                hlo = hmid + 1;
+            }
+        }
+
+        while (wlo <= whi) {
+            int wmid = wlo + (whi - wlo) / 2;
+            if (matrix[hmid][wmid] == target) {
+                return true;
+            }
+            if (matrix[hmid][wmid] >= target) {
+                whi = wmid - 1;
+            } else {
+                wlo = wmid + 1;
+            }
+        }
+        return false;
+    }
+}
+
+//runtime_error:Line 12: java.lang.ArrayIndexOutOfBoundsException: Index 0 out of bounds for length 0
+//last_testcase:[[]] 1

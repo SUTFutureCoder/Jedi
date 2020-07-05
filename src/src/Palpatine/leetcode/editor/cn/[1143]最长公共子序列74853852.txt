@@ -1,0 +1,32 @@
+class Solution {
+    public int longestCommonSubsequence(String text1, String text2) {
+        char[] text1arr = text1.toCharArray();
+        char[] text2arr = text2.toCharArray();
+        int[][] map = new int[text1arr.length][text2arr.length];
+        for (int i = 0; i < text1arr.length; i++) {
+            if (text1arr[i] == text2arr[0]) {
+                map[i][0] = 1;
+            }
+        }
+        for (int j = 0; j < text2arr.length; j++) {
+            if (text1arr[0] == text2arr[j]) {
+                map[0][j] = 1;
+            }
+        }
+        for (int i = 1; i < text1arr.length; i++) {
+            for (int j = 1; j < text2arr.length; j++) {
+                map[i][j] = Math.max(map[i][j - 1], map[i - 1][j - 1]);
+                if (text1arr[i] == text2arr[j]) {
+                    map[i][j] += 1;
+                }
+            }
+        }
+        return map[text1arr.length - 1][text2arr.length - 1];
+    }
+}
+
+//total_testcases:38
+//total_correct:8
+//input_formatted:"abcde", "ace"
+//expected_output:3
+//code_output:1

@@ -1,0 +1,40 @@
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if (matrix.length == 0 || matrix[0].length == 0) {
+            return false;
+        }
+        int wlo = 0, whi = matrix[0].length - 1;
+        int hlo = 0, hhi = matrix.length - 1, hanx = -1;
+        // 锁定位置
+        while (hlo <= hhi) {
+            int hmid = hlo + (hhi - hlo) / 2;
+            if (matrix[hmid][0] == target) {
+                return true;
+            }
+            if (matrix[hmid][0] >= target) {
+                hhi = hmid - 1;
+            } else {
+                hlo = hmid + 1;
+                hanx = hmid;
+            }
+        }
+
+        while (wlo <= whi) {
+            int wmid = wlo + (whi - wlo) / 2;
+            System.out.println(hanx);
+            System.out.println(wmid);
+            if (matrix[hanx][wmid] == target) {
+                return true;
+            }
+            if (matrix[hanx][wmid] >= target) {
+                whi = wmid - 1;
+            } else {
+                wlo = wmid + 1;
+            }
+        }
+        return false;
+    }
+}
+
+//runtime_error:Line 26: java.lang.ArrayIndexOutOfBoundsException: Index -1 out of bounds for length 1
+//last_testcase:[[1]] 0

@@ -53,6 +53,23 @@ class Solution {
 //            one_before_step = all_steps;
 //        }
 //        return all_steps;
+
+
+        // if (dp == null) {
+        //     dp = new int[n + 1];
+        // }
+
+        // if (n <= 2) {
+        //     return n;
+        // }
+        // if (dp[n] != 0) {
+        //     return dp[n];
+        // }
+        // dp[n] = climbStairs(n - 1) + climbStairs(n - 2);
+        // return dp[n];
+
+
+
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

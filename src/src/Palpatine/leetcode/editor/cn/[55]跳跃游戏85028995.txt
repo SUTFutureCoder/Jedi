@@ -1,0 +1,21 @@
+class Solution {
+    public boolean canJump(int[] nums) {
+        boolean[] jumpNums = new boolean[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0) {
+                jumpNums[i] = true;
+                break;
+            }
+            for (int j = 0; j <= nums[i] && i + j < nums.length; j++) {
+                jumpNums[i + j] = true;
+             }
+        }
+        return jumpNums[nums.length - 1];
+    }
+}
+
+//total_testcases:75
+//total_correct:61
+//input_formatted:[3,0,8,2,0,0,1]
+//expected_output:true
+//code_output:false

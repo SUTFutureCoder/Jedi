@@ -1,0 +1,32 @@
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        if (coins.length == 0) {
+            return -1;
+        }
+        if (amount == 0) {
+            return 0;
+        }
+        int coinCnt = 0;
+        Arrays.sort(coins);
+        int idxLast = coins.length - 1;
+        while (idxLast >= 0) {
+            if (amount - coins[idxLast] >= 0) {
+                amount -= coins[idxLast];
+                System.out.println(amount);
+                coinCnt++;
+            } else {
+                idxLast--;
+            }
+        }
+        if (amount == 0) {
+            return coinCnt;
+        }
+        return -1;
+    }
+}
+
+//total_testcases:182
+//total_correct:46
+//input_formatted:[186,419,83,408], 6249
+//expected_output:20
+//code_output:-1
