@@ -1,0 +1,35 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+//public class ListNode {
+//    int val;
+//    ListNode next;
+//    ListNode(int x) { val = x; }
+//}
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode dummy = head;
+        ListNode pre = head;
+        head = head.next;
+        while (head != null) {
+            if (pre.val == head.val) {
+                pre.next = head.next;
+                head = pre.next;
+            }
+            pre = head;
+            head = head.next;
+        }
+        return dummy;
+    }
+}
+
+//runtime_error:Line 28: java.lang.NullPointerException
+//last_testcase:[1,1,2,3,3]
