@@ -1,0 +1,40 @@
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+
+        for (int i = 0; i < board.length; i++) {
+            Set<Character> cRow = new HashSet<>();
+            Set<Character> cCol = new HashSet<>();
+            for (int j = 0; j < board.length; j++) {
+                if (board[i][j] != '.' && cRow.contains(board[i][j])) {
+                    return false;
+                }
+                if (board[j][i] != '.' && cCol.contains(board[j][i])) {
+                    return false;
+                }
+                cRow.add(board[i][j]);
+                cCol.add(board[j][i]);
+            }
+        }
+
+        int part = board.length / 3;
+        for (int i = 0; i < part; i++) {
+            Set<Character> setPa = new HashSet<>();
+            for (int j = i * 3; j < 3 + i * 3; j++) {
+                for (int k = i * 3; k < 3 + i * 3; k++) {
+                    if (board[j][k] != '.' && setPa.contains(board[j][k])) {
+                        return false;
+                    }
+                    setPa.add(board[j][k]);
+                }
+            }
+        }
+
+        return true;
+    }
+}
+
+//total_testcases:504
+//total_correct:483
+//input_formatted:[[".",".",".",".","5",".",".","1","."],[".","4",".","3",".",".",".",".","."],[".",".",".",".",".","3",".",".","1"],["8",".",".",".",".",".",".","2","."],[".",".","2",".","7",".",".",".","."],[".","1","5",".",".",".",".",".","."],[".",".",".",".",".","2",".",".","."],[".","2",".","9",".",".",".",".","."],[".",".","4",".",".",".",".",".","."]]
+//expected_output:false
+//code_output:true

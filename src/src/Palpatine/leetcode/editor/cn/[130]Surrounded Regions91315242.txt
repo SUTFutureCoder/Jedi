@@ -1,0 +1,85 @@
+class Solution {
+
+    class UnionFind {
+        private int count;
+        private int[] parent;
+        public UnionFind(int n) {
+            count = 0;
+            parent = new int[n];
+            for (int i = 0; i < n; i++) {
+                parent[i] = i;
+                count++;
+            }
+        }
+
+        public int getCount() {
+            return count;
+        }
+
+        public int find(int p) {
+            while (p != parent[p]) {
+                parent[p] = parent[parent[p]];
+                p = parent[p];
+            }
+            return p;
+        }
+
+        public void union(int p, int q) {
+            int rootp = find(p);
+            int rootq = find(q);
+            if (rootp != rootq) {
+                parent[rootp] = rootq;
+                count--;
+            }
+        }
+
+        public boolean isConnected(int i, int j) {
+            return find(i) == find(j);
+        }
+    }
+
+    public void solve(char[][] board) {
+        if (board == null || board.length <= 0) {
+            return;
+        }
+        int row = board.length;
+        int col = board[0].length;
+        UnionFind uf = new UnionFind(row * col + 1);
+        int dummyNode = row * col;
+
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (board[i][j] != 'O') {
+                    continue;
+                }
+                board[i][j] = 'X';
+                if (i == 0 || j == 0 || j == col - 1 || i == row - 1) {
+                    uf.union(i * col + j, dummyNode);
+                } else {
+                    if (i + 1 < row && board[i + 1][j] == 'O') {
+                        uf.union(i * col + j, (i + 1) * col + j);
+                    }
+                    if (j + 1 < col && board[i][j + 1] == 'O') {
+                        System.out.println((i * col + j) + "_" + (i * col + j + 1));
+                        uf.union(i * col + j, i * col + j + 1);
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (uf.isConnected(i * col + j, dummyNode)) {
+                    board[i][j] = 'O';
+                }
+            }
+        }
+    }
+}
+//leetcode submit region end(Prohibit modification and deletion)
+
+//total_testcases:59
+//total_correct:45
+//input_formatted:[["X","O","O","X","X","X","O","X","O","O"],["X","O","X","X","X","X","X","X","X","X"],["X","X","X","X","O","X","X","X","X","X"],["X","O","X","X","X","O","X","X","X","O"],["O","X","X","X","O","X","O","X","O","X"],["X","X","O","X","X","O","O","X","X","X"],["O","X","X","O","O","X","O","X","X","O"],["O","X","X","X","X","X","O","X","X","X"],["X","O","O","X","X","O","X","X","O","O"],["X","X","X","O","O","X","O","X","X","O"]]
+//expected_output:[["X","O","O","X","X","X","O","X","O","O"],["X","O","X","X","X","X","X","X","X","X"],["X","X","X","X","X","X","X","X","X","X"],["X","X","X","X","X","X","X","X","X","O"],["O","X","X","X","X","X","X","X","X","X"],["X","X","X","X","X","X","X","X","X","X"],["O","X","X","X","X","X","X","X","X","O"],["O","X","X","X","X","X","X","X","X","X"],["X","X","X","X","X","X","X","X","O","O"],["X","X","X","O","O","X","O","X","X","O"]]
+//code_output:[["X","O","O","X","X","X","O","X","O","O"],["X","X","X","X","X","X","X","X","X","X"],["X","X","X","X","X","X","X","X","X","X"],["X","X","X","X","X","X","X","X","X","O"],["O","X","X","X","X","X","X","X","X","X"],["X","X","X","X","X","X","X","X","X","X"],["O","X","X","X","X","X","X","X","X","O"],["O","X","X","X","X","X","X","X","X","X"],["X","X","X","X","X","X","X","X","O","O"],["X","X","X","O","O","X","O","X","X","O"]]

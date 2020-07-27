@@ -1,0 +1,74 @@
+class Solution {
+    class UnionFind {
+        private int count;
+        private int[] parent;
+        public UnionFind(int[][] m) {
+            if (m == null || m.length <= 0) {
+                return;
+            }
+            count = 0;
+            int row = m.length;
+            int col = m[0].length;
+            parent = new int[row * col];
+            for (int i = 0; i < row; i++) {
+                for (int j = 0; j < col; j++) {
+                    parent[i * row + j] = i * row + j;
+                    if (m[i][j] == 1) {
+                        count++;
+                    }
+                }
+            }
+        }
+
+        public int getCount() {
+            return count;
+        }
+
+        public int find(int p) {
+            while (parent[p] != p) {
+                parent[p] = parent[parent[p]];
+                p = parent[p];
+            }
+            return p;
+        }
+
+        public void union(int p, int q) {
+            int rootp = find(p);
+            int rootq = find(q);
+            if (rootp != rootq) {
+                parent[rootp] = rootq;
+                count--;
+            }
+        }
+    }
+
+    public int findCircleNum(int[][] M) {
+        // 并查集
+        if (M == null || M.length <= 0) {
+            return 0;
+        }
+        UnionFind uf = new UnionFind(M);
+        int row = M.length;
+        int col = M[0].length;
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (M[i][j] == 1) {
+                    M[i][j] = 2;
+                    if (i + 1 < row && M[i + 1][j] == 1) {
+                        uf.union(i * col + j, (i + 1) * col + j);
+                    }
+                    if (j + 1 < col && M[i][j + 1] == 1) {
+                        uf.union(i * col + j, i * col + j + 1);
+                    }
+                }
+            }
+        }
+        return uf.getCount();
+    }
+}
+
+//total_testcases:113
+//total_correct:30
+//input_formatted:[[1,0,0,1],[0,1,1,0],[0,1,1,1],[1,0,1,1]]
+//expected_output:1
+//code_output:4
