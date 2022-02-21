@@ -30,19 +30,27 @@
 //}
 class Solution {
     public ListNode reverseList(ListNode head) {
+//        if (head == null || head.next == null) {
+//            return head;
+//        }
+//        ListNode fast = head.next;
+//        ListNode curr = head;
+//        while (fast != null) {
+//            ListNode faster = fast.next;
+//            fast.next = curr;
+//            curr = fast;
+//            fast = faster;
+//        }
+//        head.next = null;
+//        return curr;
+
         if (head == null || head.next == null) {
             return head;
         }
-        ListNode fast = head.next;
-        ListNode curr = head;
-        while (fast != null) {
-            ListNode faster = fast.next;
-            fast.next = curr;
-            curr = fast;
-            fast = faster;
-        }
+        ListNode last = reverseList(head.next);
+        head.next.next = head;
         head.next = null;
-        return curr;
+        return last;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
