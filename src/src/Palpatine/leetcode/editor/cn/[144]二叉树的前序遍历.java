@@ -21,7 +21,6 @@
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 /**
  * Definition for a binary tree node.
@@ -32,30 +31,42 @@ import java.util.Stack;
  *     TreeNode(int x) { val = x; }
  * }
  */
-//public class TreeNode {
-//    int val;
-//    TreeNode left;
-//    TreeNode right;
-//    TreeNode(int x) { val = x; }
-//}
+public class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int x) { val = x; }
+}
 class Solution {
     public List<Integer> preorderTraversal(TreeNode root) {
-        Stack<TreeNode> stack = new Stack<>();
-        List<Integer> list = new ArrayList<>();
-        TreeNode curr = root;
-        while (curr != null || !stack.isEmpty()) {
-            while (curr != null) {
-                list.add(curr.val);
-                stack.push(curr);
-                curr = curr.left;
-            }
-
-            TreeNode treeNode = stack.pop();
-            if (treeNode.right != null) {
-                curr = treeNode.right;
-            }
-        }
-        return list;
+        List<Integer> res = new ArrayList<>();
+        traverse(root, res);
+//        Stack<TreeNode> stack = new Stack<>();
+//        List<Integer> list = new ArrayList<>();
+//        TreeNode curr = root;
+//        while (curr != null || !stack.isEmpty()) {
+//            while (curr != null) {
+//                list.add(curr.val);
+//                stack.push(curr);
+//                curr = curr.left;
+//            }
+//
+//            TreeNode treeNode = stack.pop();
+//            if (treeNode.right != null) {
+//                curr = treeNode.right;
+//            }
+//        }
+        return res;
     }
+
+    private void traverse(TreeNode root, List<Integer> res) {
+        if (root == null) {
+            return;
+        }
+        res.add(root.val);
+        traverse(root.left, res);
+        traverse(root.right, res);
+    }
+
 }
 //leetcode submit region end(Prohibit modification and deletion)

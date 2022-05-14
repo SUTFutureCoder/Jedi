@@ -38,8 +38,6 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 
-import java.util.Stack;
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -56,19 +54,41 @@ public class TreeNode {
     TreeNode(int x) { val = x; }
 }
 class Solution {
+
+    int res = 0;
+    int rank = 0;
+
+
     public int kthSmallest(TreeNode root, int k) {
         // 二叉搜索树中序遍历有序
-        Stack<TreeNode> stack = new Stack<>();
-        while (root != null || !stack.isEmpty()) {
-            while (root != null) {
-                stack.push(root);
-                root = root.left;
-            }
-            root = stack.pop();
-            if (--k == 0) break;
-            root = root.right;
+//        Stack<TreeNode> stack = new Stack<>();
+//        while (root != null || !stack.isEmpty()) {
+//            while (root != null) {
+//                stack.push(root);
+//                root = root.left;
+//            }
+//            root = stack.pop();
+//            if (--k == 0) break;
+//            root = root.right;
+//        }
+//        return root.val;
+
+        traverse(root, k);
+        return res;
+
+
+    }
+
+    private void traverse(TreeNode root, int k) {
+        if (root == null) {
+            return;
         }
-        return root.val;
+        traverse(root.left, k);
+        if (++rank == k) {
+            res = root.val;
+            return;
+        }
+        traverse(root.right, k);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

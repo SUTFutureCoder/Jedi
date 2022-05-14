@@ -47,18 +47,29 @@ public class TreeNode {
 }
 class Solution {
     public TreeNode invertTree(TreeNode root) {
+//
+//        if (root == null || (root.left == null && root.right == null)) {
+//            return root;
+//        }
+//
+//        root.left = invertTree(root.left);
+//        root.right = invertTree(root.right);
+//
+//        TreeNode tmp = root.left;
+//        root.left = root.right;
+//        root.right = tmp;
+//
+//        return root;
 
-        if (root == null || (root.left == null && root.right == null)) {
-            return root;
+
+        if (root == null) {
+            return null;
         }
-
-        root.left = invertTree(root.left);
-        root.right = invertTree(root.right);
-
         TreeNode tmp = root.left;
         root.left = root.right;
         root.right = tmp;
-
+        invertTree(root.left);
+        invertTree(root.right);
         return root;
     }
 }
